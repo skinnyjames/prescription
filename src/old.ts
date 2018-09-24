@@ -1,4 +1,3 @@
-
 import * as Bluebird from 'bluebird'
 
 class Browser {
@@ -14,42 +13,33 @@ class Browser {
   visit(url:string) {
     return this.driver.get(url)
   }
+
+  locateElement(locator:any) {
+    if (this.currentElement) {
+      this.currentElement = this.currentElement.findElement(locator)
+    }else {
+      this.currentElement = this.driver.findElement(locator)
+    }
+  }
+  
 }
 
 class Element {
 
-  browser:any
+  queryScope:any
   locator:any
   element:any
     
-  constructor(context:any, locator:any) {
-
-    if (context.browser) {
-      this.browser = context.browser
-    } else {
-      this.browser = context
-    }
+  constructor(scope:any, locator:any) {
 
     this.locator = locator
-    this.element = this.locateElement()
-    this.browser.currentElement = this.element
+    this.element = scope.locateElement(locator)
+
     Object.assign(this, Container)
   }
 
   text() {
     return this.element.getText()
-  }
-
-  click() {
-    return this.element.click()
-  }
-
-  locateElement() {
-    if (this.browser.currentElement) {
-      return this.browser.currentElement.findElement(this.locator)
-    } else {
-      return this.browser.driver.findElement(this.locator)
-    }
   }
 
 }
@@ -66,15 +56,13 @@ class Anchor extends HTMLElement {
 var Container = {
 
   div(args:any) { 
+    console.log('div tag', this)
     return new HTMLElement(this, args)
   },
 
   a(args:any) {
+    console.log('a tag', this)
     return new Anchor(this, args)
-  },
-
-  td(args:any) {
-    return new HTMLElement(this, args)
   }
 
 }
