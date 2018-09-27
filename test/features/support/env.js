@@ -15,18 +15,18 @@ const Browser = require('./../../../dist/prescription')
 setDefaultTimeout(10000)
 
 var glance = require('glance')
-var g
+var glancePromise
 
 BeforeAll(function(cb) {
-  g = glance({ dir: 'test/html'})
-  g.start()
+  glancePromise = glance({ dir: 'test/html'})
+  glancePromise.start()
   setTimeout(function() {
     cb()
   }, 5000)
 })
 
 AfterAll(function() {
-  g.stop()
+  glancePromise.stop()
   driver.quit()
 })
 
