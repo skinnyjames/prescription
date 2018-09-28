@@ -1,4 +1,3 @@
-
 import * as Bluebird from 'bluebird'
 
 class Browser {
@@ -15,6 +14,7 @@ class Browser {
     return this.driver.get(url)
   }
 }
+
 
 class Element {
 
@@ -66,6 +66,10 @@ class Anchor extends HTMLElement {
 var Container = {
 
   div(args:any) { 
+    return new HTMLElement(this, args)
+  },
+
+  span(args:any) { 
     return new HTMLElement(this, args)
   },
 
