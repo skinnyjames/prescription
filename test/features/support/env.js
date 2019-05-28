@@ -1,16 +1,14 @@
 const resolve = require('path').resolve
 const { setDefaultTimeout, setWorldConstructor, AfterAll, BeforeAll } = require('cucumber')
-const webdriver = require('selenium-webdriver')
+const { Builder, By, Key, promise, until } = require('selenium-webdriver');
+const firefox = require('selenium-webdriver/firefox')
+const options = new firefox.Options().setBinary('/usr/bin/firefox')
+const driver = new Builder()
+.forBrowser('firefox')
+.setFirefoxOptions(options)
+.build()
 
-
-const chromeCapabilities = webdriver.Capabilities.chrome()
-const chromeOptions = {
-  'args': ['--no-sandbox']
-}
-chromeCapabilities.set('chromeOptions', chromeOptions)
-
-const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chromeCapabilities).build()
-const Browser = require('./../../../dist/prescription')
+const Browser = require('./../../../dist/prescription').Browser
 
 setDefaultTimeout(10000)
 

@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
     "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
+    "esModuleInterop": true,
     "lib": ["ES2015"],
     "outDir": "./dist"
   },
