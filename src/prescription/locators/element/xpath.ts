@@ -126,7 +126,7 @@ namespace Prescription {
       addRegexpPredicates(what: string, selector: Selector) {
         for(let key in selector) {
           if (/^(?:tag_name|text|visible_text|visible|index)$/.test(key)) {
-            break
+            continue
           }
           
           let predicates = this.regexpSelectorToPredicates(key, selector[key])
